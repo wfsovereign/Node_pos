@@ -1,0 +1,246 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/home/wfsovereign/.nvm/v0.11.14/bin/node',
+1 verbose cli   '/home/wfsovereign/.nvm/v0.11.14/bin/npm',
+1 verbose cli   'install' ]
+2 info using npm@2.0.0
+3 info using node@v0.11.14
+4 verbose readDependencies using package.json deps
+5 verbose install where, deps [ '/home/wfsovereign/Node_project/pos_node',
+5 verbose install   [ 'express',
+5 verbose install     'body-parser',
+5 verbose install     'cookie-parser',
+5 verbose install     'morgan',
+5 verbose install     'serve-favicon',
+5 verbose install     'debug',
+5 verbose install     'ejs',
+5 verbose install     'mongodb',
+5 verbose install     'express-session',
+5 verbose install     'connect-mongo',
+5 verbose install     'connect-flash' ] ]
+6 info preinstall pos_node@0.0.0
+7 verbose readDependencies using package.json deps
+8 verbose already installed skipping express@~4.9.0 /home/wfsovereign/Node_project/pos_node
+9 verbose already installed skipping body-parser@~1.8.1 /home/wfsovereign/Node_project/pos_node
+10 verbose already installed skipping cookie-parser@~1.3.3 /home/wfsovereign/Node_project/pos_node
+11 verbose already installed skipping morgan@~1.3.0 /home/wfsovereign/Node_project/pos_node
+12 verbose already installed skipping serve-favicon@~2.1.3 /home/wfsovereign/Node_project/pos_node
+13 verbose already installed skipping debug@~2.0.0 /home/wfsovereign/Node_project/pos_node
+14 verbose already installed skipping ejs@~0.8.5 /home/wfsovereign/Node_project/pos_node
+15 verbose cache add [ 'mongodb@2.4.9', null ]
+16 verbose cache add spec="mongodb@2.4.9" args=["mongodb@2.4.9",null]
+17 verbose parsed spec { raw: 'mongodb@2.4.9',
+17 verbose parsed spec   scope: null,
+17 verbose parsed spec   name: 'mongodb',
+17 verbose parsed spec   rawSpec: '2.4.9',
+17 verbose parsed spec   spec: '2.4.9',
+17 verbose parsed spec   type: 'version' }
+18 verbose cache add [ 'express-session@1.9.1', null ]
+19 verbose cache add spec="express-session@1.9.1" args=["express-session@1.9.1",null]
+20 verbose parsed spec { raw: 'express-session@1.9.1',
+20 verbose parsed spec   scope: null,
+20 verbose parsed spec   name: 'express-session',
+20 verbose parsed spec   rawSpec: '1.9.1',
+20 verbose parsed spec   spec: '1.9.1',
+20 verbose parsed spec   type: 'version' }
+21 verbose cache add [ 'connect-mongo@0.4.1', null ]
+22 verbose cache add spec="connect-mongo@0.4.1" args=["connect-mongo@0.4.1",null]
+23 verbose parsed spec { raw: 'connect-mongo@0.4.1',
+23 verbose parsed spec   scope: null,
+23 verbose parsed spec   name: 'connect-mongo',
+23 verbose parsed spec   rawSpec: '0.4.1',
+23 verbose parsed spec   spec: '0.4.1',
+23 verbose parsed spec   type: 'version' }
+24 verbose parsed spec { raw: 'mongodb@2.4.9',
+24 verbose parsed spec   scope: null,
+24 verbose parsed spec   name: 'mongodb',
+24 verbose parsed spec   rawSpec: '2.4.9',
+24 verbose parsed spec   spec: '2.4.9',
+24 verbose parsed spec   type: 'version' }
+25 verbose addNamed [ 'mongodb', '2.4.9' ]
+26 verbose addNamed [ '2.4.9', '2.4.9' ]
+27 verbose parsed spec { raw: 'express-session@1.9.1',
+27 verbose parsed spec   scope: null,
+27 verbose parsed spec   name: 'express-session',
+27 verbose parsed spec   rawSpec: '1.9.1',
+27 verbose parsed spec   spec: '1.9.1',
+27 verbose parsed spec   type: 'version' }
+28 verbose addNamed [ 'express-session', '1.9.1' ]
+29 verbose addNamed [ '1.9.1', '1.9.1' ]
+30 verbose cache add [ 'connect-flash@0.1.1', null ]
+31 verbose cache add spec="connect-flash@0.1.1" args=["connect-flash@0.1.1",null]
+32 verbose parsed spec { raw: 'connect-flash@0.1.1',
+32 verbose parsed spec   scope: null,
+32 verbose parsed spec   name: 'connect-flash',
+32 verbose parsed spec   rawSpec: '0.1.1',
+32 verbose parsed spec   spec: '0.1.1',
+32 verbose parsed spec   type: 'version' }
+33 verbose parsed spec { raw: 'connect-mongo@0.4.1',
+33 verbose parsed spec   scope: null,
+33 verbose parsed spec   name: 'connect-mongo',
+33 verbose parsed spec   rawSpec: '0.4.1',
+33 verbose parsed spec   spec: '0.4.1',
+33 verbose parsed spec   type: 'version' }
+34 verbose addNamed [ 'connect-mongo', '0.4.1' ]
+35 verbose addNamed [ '0.4.1', '0.4.1' ]
+36 silly lockFile 1224ee59-mongodb-2-4-9 mongodb@2.4.9
+37 verbose lock mongodb@2.4.9 /home/wfsovereign/.npm/1224ee59-mongodb-2-4-9.lock
+38 silly lockFile c0a3989b-express-session-1-9-1 express-session@1.9.1
+39 verbose lock express-session@1.9.1 /home/wfsovereign/.npm/c0a3989b-express-session-1-9-1.lock
+40 silly lockFile 59b2d988-connect-mongo-0-4-1 connect-mongo@0.4.1
+41 verbose lock connect-mongo@0.4.1 /home/wfsovereign/.npm/59b2d988-connect-mongo-0-4-1.lock
+42 verbose parsed spec { raw: 'connect-flash@0.1.1',
+42 verbose parsed spec   scope: null,
+42 verbose parsed spec   name: 'connect-flash',
+42 verbose parsed spec   rawSpec: '0.1.1',
+42 verbose parsed spec   spec: '0.1.1',
+42 verbose parsed spec   type: 'version' }
+43 verbose addNamed [ 'connect-flash', '0.1.1' ]
+44 verbose addNamed [ '0.1.1', '0.1.1' ]
+45 silly lockFile 0cdf4f98-connect-flash-0-1-1 connect-flash@0.1.1
+46 verbose lock connect-flash@0.1.1 /home/wfsovereign/.npm/0cdf4f98-connect-flash-0-1-1.lock
+47 verbose mapToRegistry name mongodb
+48 verbose mapToRegistry uri https://registry.npmjs.org/mongodb
+49 verbose mapToRegistry name express-session
+50 verbose mapToRegistry uri https://registry.npmjs.org/express-session
+51 verbose mapToRegistry name connect-mongo
+52 verbose mapToRegistry uri https://registry.npmjs.org/connect-mongo
+53 verbose mapToRegistry name connect-flash
+54 verbose mapToRegistry uri https://registry.npmjs.org/connect-flash
+55 verbose request on initialization, where is /connect-mongo
+56 verbose request after pass 1, where is /connect-mongo
+57 verbose request url raw /connect-mongo
+58 verbose request resolving registry [ 'https://registry.npmjs.org/', './connect-mongo' ]
+59 verbose request after pass 2, where is https://registry.npmjs.org/connect-mongo
+60 verbose request no auth needed
+61 info attempt registry request try #1 at 10:33:16
+62 verbose request id 888c02cf0435ed85
+63 verbose etag "DKA43DB29BV1DQ4Q4JFSCRTPE"
+64 http request GET https://registry.npmjs.org/connect-mongo
+65 verbose request on initialization, where is /connect-flash
+66 verbose request after pass 1, where is /connect-flash
+67 verbose request url raw /connect-flash
+68 verbose request resolving registry [ 'https://registry.npmjs.org/', './connect-flash' ]
+69 verbose request after pass 2, where is https://registry.npmjs.org/connect-flash
+70 verbose request no auth needed
+71 info attempt registry request try #1 at 10:33:16
+72 verbose etag "F4BHXDHASPEFUX2U60FNKIUU0"
+73 http request GET https://registry.npmjs.org/connect-flash
+74 verbose request on initialization, where is /mongodb
+75 verbose request after pass 1, where is /mongodb
+76 verbose request url raw /mongodb
+77 verbose request resolving registry [ 'https://registry.npmjs.org/', './mongodb' ]
+78 verbose request after pass 2, where is https://registry.npmjs.org/mongodb
+79 verbose request no auth needed
+80 info attempt registry request try #1 at 10:33:16
+81 verbose etag "EPZ153NSMDDRBWISEPKPWNPIL"
+82 http request GET https://registry.npmjs.org/mongodb
+83 verbose request on initialization, where is /express-session
+84 verbose request after pass 1, where is /express-session
+85 verbose request url raw /express-session
+86 verbose request resolving registry [ 'https://registry.npmjs.org/', './express-session' ]
+87 verbose request after pass 2, where is https://registry.npmjs.org/express-session
+88 verbose request no auth needed
+89 info attempt registry request try #1 at 10:33:16
+90 verbose etag "5CCJH6AYO62GE35PU387HT9OI"
+91 http request GET https://registry.npmjs.org/express-session
+92 http 304 https://registry.npmjs.org/express-session
+93 silly registry.get cb [ 304,
+93 silly registry.get   { date: 'Fri, 12 Dec 2014 02:33:16 GMT',
+93 silly registry.get     server: 'Apache',
+93 silly registry.get     via: '1.1 varnish',
+93 silly registry.get     'last-modified': 'Fri, 12 Dec 2014 02:32:46 GMT',
+93 silly registry.get     'cache-control': 'max-age=60',
+93 silly registry.get     etag: '"5CCJH6AYO62GE35PU387HT9OI"',
+93 silly registry.get     age: '30',
+93 silly registry.get     'x-served-by': 'cache-ty66-TYO',
+93 silly registry.get     'x-cache': 'HIT',
+93 silly registry.get     'x-cache-hits': '3',
+93 silly registry.get     'x-timer': 'S1418351596.875881,VS0,VE0',
+93 silly registry.get     vary: 'Accept',
+93 silly registry.get     'content-length': '0',
+93 silly registry.get     connection: 'close' } ]
+94 verbose etag https://registry.npmjs.org/express-session from cache
+95 http 304 https://registry.npmjs.org/mongodb
+96 silly registry.get cb [ 304,
+96 silly registry.get   { date: 'Fri, 12 Dec 2014 02:33:16 GMT',
+96 silly registry.get     server: 'Apache',
+96 silly registry.get     via: '1.1 varnish',
+96 silly registry.get     'last-modified': 'Fri, 12 Dec 2014 02:33:12 GMT',
+96 silly registry.get     'cache-control': 'max-age=60',
+96 silly registry.get     etag: '"EPZ153NSMDDRBWISEPKPWNPIL"',
+96 silly registry.get     age: '5',
+96 silly registry.get     'x-served-by': 'cache-ty67-TYO',
+96 silly registry.get     'x-cache': 'HIT',
+96 silly registry.get     'x-cache-hits': '2',
+96 silly registry.get     'x-timer': 'S1418351596.898027,VS0,VE0',
+96 silly registry.get     vary: 'Accept',
+96 silly registry.get     'content-length': '0',
+96 silly registry.get     connection: 'close' } ]
+97 verbose etag https://registry.npmjs.org/mongodb from cache
+98 silly lockFile 1224ee59-mongodb-2-4-9 mongodb@2.4.9
+99 silly lockFile 1224ee59-mongodb-2-4-9 mongodb@2.4.9
+100 silly lockFile c0a3989b-express-session-1-9-1 express-session@1.9.1
+101 silly lockFile c0a3989b-express-session-1-9-1 express-session@1.9.1
+102 http 304 https://registry.npmjs.org/connect-mongo
+103 silly registry.get cb [ 304,
+103 silly registry.get   { date: 'Fri, 12 Dec 2014 02:33:16 GMT',
+103 silly registry.get     server: 'Apache',
+103 silly registry.get     via: '1.1 varnish',
+103 silly registry.get     'last-modified': 'Fri, 12 Dec 2014 02:33:17 GMT',
+103 silly registry.get     'cache-control': 'max-age=60',
+103 silly registry.get     etag: '"DKA43DB29BV1DQ4Q4JFSCRTPE"',
+103 silly registry.get     age: '0',
+103 silly registry.get     'x-served-by': 'cache-ty67-TYO',
+103 silly registry.get     'x-cache': 'HIT',
+103 silly registry.get     'x-cache-hits': '1',
+103 silly registry.get     'x-timer': 'S1418351596.881945,VS0,VE129',
+103 silly registry.get     vary: 'Accept',
+103 silly registry.get     'content-length': '0',
+103 silly registry.get     connection: 'close' } ]
+104 verbose etag https://registry.npmjs.org/connect-mongo from cache
+105 silly lockFile 59b2d988-connect-mongo-0-4-1 connect-mongo@0.4.1
+106 silly lockFile 59b2d988-connect-mongo-0-4-1 connect-mongo@0.4.1
+107 http 200 https://registry.npmjs.org/connect-flash
+108 silly registry.get cb [ 200,
+108 silly registry.get   { date: 'Fri, 12 Dec 2014 02:33:17 GMT',
+108 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+108 silly registry.get     etag: '"BX4ALT5WLD88Y6W61GKS3Q5GV"',
+108 silly registry.get     'content-type': 'application/json',
+108 silly registry.get     'cache-control': 'max-age=60',
+108 silly registry.get     'content-length': '5756',
+108 silly registry.get     'accept-ranges': 'bytes',
+108 silly registry.get     via: '1.1 varnish',
+108 silly registry.get     age: '0',
+108 silly registry.get     'x-served-by': 'cache-ty68-TYO',
+108 silly registry.get     'x-cache': 'HIT',
+108 silly registry.get     'x-cache-hits': '1',
+108 silly registry.get     'x-timer': 'S1418351597.079766,VS0,VE126',
+108 silly registry.get     vary: 'Accept',
+108 silly registry.get     connection: 'close' } ]
+109 silly lockFile e33d4ca4-ct-flash-connect-flash-0-1-1-tgz https://registry.npmjs.org/connect-flash/-/connect-flash-0.1.1.tgz
+110 verbose lock https://registry.npmjs.org/connect-flash/-/connect-flash-0.1.1.tgz /home/wfsovereign/.npm/e33d4ca4-ct-flash-connect-flash-0-1-1-tgz.lock
+111 verbose addRemoteTarball [ 'https://registry.npmjs.org/connect-flash/-/connect-flash-0.1.1.tgz',
+111 verbose addRemoteTarball   'd8630f26d95a7f851f9956b1e8cc6732f3b6aa30' ]
+112 info retry fetch attempt 1 at 10:33:17
+113 info attempt registry request try #1 at 10:33:17
+114 http fetch GET https://registry.npmjs.org/connect-flash/-/connect-flash-0.1.1.tgz
+115 http fetch 200 https://registry.npmjs.org/connect-flash/-/connect-flash-0.1.1.tgz
+116 silly fetchAndShaCheck shasum d8630f26d95a7f851f9956b1e8cc6732f3b6aa30
+117 silly lockFile e33d4ca4-ct-flash-connect-flash-0-1-1-tgz https://registry.npmjs.org/connect-flash/-/connect-flash-0.1.1.tgz
+118 silly lockFile e33d4ca4-ct-flash-connect-flash-0-1-1-tgz https://registry.npmjs.org/connect-flash/-/connect-flash-0.1.1.tgz
+119 silly lockFile 0cdf4f98-connect-flash-0-1-1 connect-flash@0.1.1
+120 silly lockFile 0cdf4f98-connect-flash-0-1-1 connect-flash@0.1.1
+121 verbose stack Error: version not found: mongodb@2.4.9
+121 verbose stack     at setData (/home/wfsovereign/.nvm/v0.11.14/lib/node_modules/npm/lib/cache/add-named.js:127:12)
+121 verbose stack     at saved (/home/wfsovereign/.nvm/v0.11.14/lib/node_modules/npm/node_modules/npm-registry-client/lib/get.js:167:7)
+121 verbose stack     at Object.oncomplete (fs.js:93:15)
+122 verbose statusCode 404
+123 verbose cwd /home/wfsovereign/Node_project/pos_node
+124 error Linux 3.13.0-24-generic
+125 error argv "/home/wfsovereign/.nvm/v0.11.14/bin/node" "/home/wfsovereign/.nvm/v0.11.14/bin/npm" "install"
+126 error node v0.11.14
+127 error npm  v2.0.0
+128 error version not found: mongodb@2.4.9
+129 error If you need help, you may report this error at:
+129 error     <http://github.com/npm/npm/issues>
+130 verbose exit [ 1, true ]

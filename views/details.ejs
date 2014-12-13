@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link href="dist/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="dist/js/jquery.min.js"></script>
+    <script src="dist/js/bootstrap.min.js"></script>
+    <script src="model/fixtures.js"></script>
+    <script src="model/item.js"></script>
+    <script src="model/promotion.js"></script>
+    <script src="lib/underscore.js"></script>
+
+    <script src="function/small_function_encapsulation.js"></script>
+    <script src="function/detailsoutput.js"></script>
+    <script type="text/javascript" src="lib/moment-with-locales.js"></script>
+
+    <title></title>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div>
+            <ul class="nav navbar-nav navbar-left">
+                <li><a href="#"> Let's Go </a></li>
+                <li ><a href="/"> 主页 </a></li>
+                <li><a href="itemslist"> 商品列表 </a></li>
+            </ul>
+        </div>
+        <div>
+            <ul class="nav navbar-nav navbar-right">
+                <li ><a href="shopcart"> <span class="glyphicon glyphicon-shopping-cart"></span> 购物车(
+                    <span class="shopcart_num">
+                    0
+                    </span>
+
+                    ) </a> </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<br>
+<br>
+<br>
+<br>
+
+<div>
+    <div class="container ">
+        <div class="panel  panel-default">
+            <div class=" panel-heading" style="background-color: lightgrey"><h3 >购物清单</h3></div>
+            <div class="panel-body details">
+                <script>
+                    document.write(moment().format('YYYY年MM月DD日'+" "+"HH:mm:ss"))
+                </script>
+                <table  class="table table-bordered text-center ">
+                    <thead class="commodity_list">
+                    <tr >
+                        <td class="col-md-1"><b>分类</b></td>
+                        <td class="col-md-2"><b>名称</b></td>
+                        <td class="col-md-2"><b>单价（元）</b></td>
+                        <td class="col-md-1"><b>单位</b></td>
+                        <td class="col-md-1"><b>数量</b></td>
+                        <td class="col-md-3"><b>小计</b></td>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<div class="subtotal container" align="right" ></div>
+<div class="savemoney container" align="right" ></div>
+<div class="actualpayment container" align="right" ></div>
+<br>
+<div class="payment container " align="right" >
+    <a href="itemslist"><button class='btn btn-primary btn-lg confirm-payment' >确认</button></a>
+</div>
+
+
+
+
+</body>
+</html>
