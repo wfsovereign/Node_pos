@@ -26,7 +26,6 @@ module.exports = function(app) {
 
     app.get('/admin',function(req,res){
         Item.get_items(function(err,items){
-
             if(err){
                 items = [];
             }

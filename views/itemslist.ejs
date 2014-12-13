@@ -5,11 +5,13 @@
 
     <link href="dist/css/bootstrap-theme.css" rel="stylesheet">
     <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="dist/js/jquery.min.js"></script>
+    <script src="dist/js/bootstrap.min.js"></script>
 
-    <script src="model/fixtures.js"></script>
     <script src="model/item.js"></script>
-    <script src="model/promotion.js"></script>
     <script src="lib/underscore.js"></script>
+    <script src="javascripts/itemslist_main.js"></script>
+
     <title></title>
 </head>
 <body>
@@ -58,24 +60,24 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <% items.forEach(function(item,index){%>
+                    <% items.forEach(function(item, index){ %>
                     <tr>
-                        <td><%= item.category%></td>
-                        <td><%= item.name%></td>
-                        <td><%= item.price%></td>
-                        <td><%= item.unit%></td>
-                        <td><button class="btn btn-default btn-primary">加入购物车</button></td>
+                        <td><%= item.category %></td>
+                        <td><%= item.name %></td>
+                        <td><%= item.price %></td>
+                        <td><%= item.unit %></td>
+                        <td>
+                            <button class="btn btn-default btn-primary add" data-barcode="<%= item.barcode %>">加入购物车
+                            </button>
+                        </td>
                     </tr>
-                    <%});%>
+                    <% }); %>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
-
-<script src="dist/js/jquery-1.8.0.min.js"></script>
-<script src="dist/js/bootstrap.min.js"></script>
 
 
 </body>
