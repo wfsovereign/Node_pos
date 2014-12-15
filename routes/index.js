@@ -15,7 +15,13 @@ module.exports = function(app) {
         });
     });
     app.get('/shopcart', function (req, res) {
+
         res.render('shopcart');
+    });
+    app.post('/shopcart',function(req,res){
+        var inputs = req.body.inputs;
+
+
     });
     app.get('/details', function (req, res) {
         res.render('details');
