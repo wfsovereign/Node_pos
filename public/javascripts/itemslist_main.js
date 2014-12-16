@@ -18,10 +18,7 @@ function shopcart_number_display(){
 
 function transfer_inputs_to_server() {
     var inputs = JSON.parse(sessionStorage.getItem('barcodes'));
-    console.log(inputs);
-    $.post('/shopcart',{'inputs':inputs},function(){
-        console.log("success transfer");
-    });
+    $.post('/shopcart',{'inputs':inputs});
 }
 
 $(document).ready(function(){

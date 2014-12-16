@@ -1,4 +1,8 @@
+
 var Item = require('../models/items.js');
+
+var build_inputs_array = require('../models/shopcart_main.js');
+
 
 module.exports = function(app) {
     app.get('/', function (req, res) {
@@ -19,8 +23,8 @@ module.exports = function(app) {
         res.render('shopcart');
     });
     app.post('/shopcart',function(req,res){
-        var inputs = req.body.inputs;
-
+        req.session.allinputs = req.body.inputs;
+        req.session.add_count_inputs = build_inputs_array(req.session.allinputs);
 
     });
     app.get('/details', function (req, res) {
