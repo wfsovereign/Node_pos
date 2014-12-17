@@ -9,7 +9,7 @@
     <script src="dist/js/jquery.js"></script>
     <script src="dist/js/bootstrap.min.js"></script>
 
-    <script src="javascripts/shopcart_main.js"></script>
+
 
 
     <title></title>
@@ -39,23 +39,43 @@
 <br>
 <br>
 <br>
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2>购物清单</h2>
+        </div>
+        <div class="panel-body">
+            <table class="table table-bordered text-center">
+                <thead class="items_list">
+                <tr>
+                    <td class='col-md-1'>分类</td>
+                    <td class='col-md-2'>名称</td>
+                    <td class='col-md-2'>单价（元）</td>
+                    <td class='col-md-1'>单位</td>
+                    <td class='col-md-3'>数量</td>
+                    <td class='col-md-4'>小计</td>
+                </tr>
+                </thead>
 
-<table class="table table-bordered text-center">
-    <thead class="items_list">
-    <tr>
-        <td class='col-md-1'>分类</td>
-        <td class='col-md-2'>名称</td>
-        <td class='col-md-2'>单价（元）</td>
-        <td class='col-md-1'>单位</td>
-        <td class='col-md-3'>数量</td>
-        <td class='col-md-4'>小计</td>
-    </tr>
-    </thead>
+                <tbody>
+                <% items.forEach(function(item, index){ %>
+                <tr>
+                    <td><%= item.category %></td>
+                    <td><%= item.name %></td>
+                    <td><%= item.price %></td>
+                    <td><%= item.unit %></td>
+                    <td><%= item.count %></td>
+                    <td><%= item.subtotal %></td>
+                </tr>
+                <% }); %>
+                </tbody>
+            </table>
 
-    <tbody>
+        </div>
+    </div>
 
-    </tbody>
-</table>
+</div>
+
 
 <br>
 <div class="subtotal container" align="right" ></div>
