@@ -1,4 +1,5 @@
 var Item = require('../models/items.js');
+var Promotion = require('../models/promotion.js');
 var _ = require('../models/underscore.js');
 var Dispose_inputs = require('../models/dispose_inputs.js');
 
@@ -20,8 +21,8 @@ module.exports = function (app) {
     app.get('/shopcart', function (req, res) {
 
         console.log(req.session.basic_items, "basic items");
-        res.render('shopcart',{
-            items:req.session.basic_items
+        res.render('shopcart', {
+            items: req.session.basic_items
         });
 
     });
@@ -38,7 +39,7 @@ module.exports = function (app) {
             }
             var have_count_inputs = Dispose_inputs.add_count_to_barcodes(req.session.allinputs);
 
-            req.session.basic_items = Dispose_inputs.add_other_property_to_inputs(have_count_inputs,item);
+            req.session.basic_items = Dispose_inputs.add_other_property_to_inputs(have_count_inputs, item);
             console.log(req.session.basic_items, "item");
             res.redirect('shopcart');
         });
@@ -46,25 +47,6 @@ module.exports = function (app) {
 
     });
 
-    /*
-     _(req.session.add_count_inputs).each(function (element) {
-     Item.get_item_from_barcode(element.barcode, function (err, item) {
-     if (err) {
-     console.log("error");
-     }
-     //var basic_item = {
-     //    barcode: item.barcode,
-     //    name: item.name,
-     //    count: element.count,
-     //    unit: item.unit,
-     //    category: item.category,
-     //    price: item.price
-     //};
-     console.log(item, "item");
-     req.session.basic_items.push(item);
-     })
-     });
-     });*/
 
     app.get('/details', function (req, res) {
         res.render('details');
@@ -97,12 +79,79 @@ module.exports = function (app) {
                 req.session.item = item;
                 res.redirect('/admin')
             });
-        } else {
-            req.flash('error', '非法提交,请检查!');
-            res.redirect('/admin')
         }
 
 
+        req.flash('error', '非法提交,请检查!');
+        res.redirect('/admin')
+
+
+    });
+
+    app.get('/admins',function(req,res) {
+        Promotion.get_all_promotion(function(err,promo){
+            if(err) {
+                promo = [];
+
+            }
+            console.log(promo);
+            res.render('admins',{
+                promotion:promo,
+                success:req.flash('success').toString(),
+                error: req.flash('error').toString()
+            })
+        });
+    });
+    app.post('/admins',function(req,res) {
+        var type = new Promotion(req.body.promotion_type);
+        type.save(function(err,type) {
+            if(err) {
+                return res.redirect('/admins');
+            }
+            req.session.promotion = type;
+            res.redirect('/admins')
+
+        })
+    });
+
+
+
+    app.get('/adminp',function(req,res) {
+        Promotion.get_all_promotion(function(err,promo){
+            if(err) {
+                promo = [];
+            }
+            res.render('adminp',{
+                promotion:promo,
+                success:req.flash('success').toString(),
+                error: req.flash('error').toString()
+            })
+        });
+    });
+
+    app.post('/adminp',function(req,res) {
+
+        console.log(req.body.promotion_type,req.body.barcode,"-----------");
+        var promotion = new Promotion(req.body.promotion_type,req.body.barcode);
+        promotion.update_barcode(function(err,promo) {
+            if(err) {
+                return res.redirect('/adminp');
+            }
+            req.session.promotion = promo;
+            res.redirect('/adminp')
+        })
     })
 
+
 };
+
+
+
+
+
+
+
+
+
+
+

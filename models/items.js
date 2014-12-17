@@ -129,7 +129,3 @@ Items.get_item_from_barcode = function (inputs, callback) {
 
 
 
-
-
-
-

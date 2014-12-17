@@ -29,26 +29,24 @@
             <% } %>
         </article>
 
+
+
         <form method="post">
 
             <table class="table table-bordered text-center">
                 <thead class="items_list">
                 <tr>
-                    <td class='col-md-3'>条码</td>
-                    <td class='col-md-2'>分类</td>
-                    <td class='col-md-2'>名称</td>
-                    <td class='col-md-2'>单价（元）</td>
-                    <td class='col-md-1'>单位</td>
+                    <td class='col-md-3'>折扣类型</td>
+                    <td class='col-md-2'>商品条码</td>
+
 
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
+                    <td><input type="text" id="promotion_type" name="promotion_type"></td>
                     <td><input type="text" id="barcode" name="barcode"></td>
-                    <td><input type="text" id="category" name="category"></td>
-                    <td><input type="text" id="name" name="name"></td>
-                    <td><input type="text" id="price" name="price"></td>
-                    <td><input type="text" id="unit" name="unit"></td>
+
                 </tr>
                 <tr>
                     <td colspan="5"><input type="submit" class="btn btn-default btn-primary btn-lg btn-block "
@@ -59,31 +57,27 @@
         </form>
 
 
-
-
     </div>
     <div class="panel-body">
         <table class="table table-bordered text-center">
             <thead class="items_list">
             <h3 style="color: #00B7FF;text-align: center">数据库商品列表</h3>
             <tr>
-                <td class='col-md-3'>条码</td>
-                <td class='col-md-2'>分类</td>
-                <td class='col-md-2'>名称</td>
-                <td class='col-md-2'>单价（元）</td>
-                <td class='col-md-1'>单位</td>
+                <td class='col-md-3'>折扣类型</td>
+                <td class='col-md-4'>分商品条码</td>
+
             </tr>
             </thead>
             <tbody>
-            <% items.forEach(function(item,index){%>
+
             <tr>
+                <% if(promotion){promotion.forEach(function(item,index){%>
+                <td><%= item.type %></td>
+
                 <td><%= item.barcode%></td>
-                <td><%= item.category%></td>
-                <td><%= item.name%></td>
-                <td><%= item.price%></td>
-                <td><%= item.unit%></td>
+
             </tr>
-            <%});%>
+            <%})};%>
             </tbody>
         </table>
     </div>
