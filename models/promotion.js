@@ -50,7 +50,7 @@ Promotion.prototype.update_barcode = function(callback) {
                 return callback(err);
             }
             console.log(promotion,"================");
-            collection.update({"type": promotion.type}, {"$addToSet": {"barcodes": promotion.barcode}}, {
+            collection.update({"type": promotion.type}, {"$addToSet": {"barcode": promotion.barcode}}, {
                 safe: true
             }, function (err) {
                 if (err) {
