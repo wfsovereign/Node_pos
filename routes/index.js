@@ -4,6 +4,35 @@ var _ = require('../models/underscore.js');
 var Dispose_inputs = require('../models/dispose_inputs.js');
 
 
+function judge_belong_to_barcodes(item,barcodes) {
+    _(barcodes).find(function(barcode) {
+        if(barcode == item.barcode) {
+            return true
+        }
+    })
+}
+function judge_belong_to_promotion(item,promo) {
+    _(promo).find(function(pro) {
+        if(judge_belong_to_barcodes(item,pro.barcode)){
+            return pro.type;
+        }
+    })
+}
+
+
+function add_promotion_info(items,promo) {
+    _(items).each(function(item) {
+        if(judge_belong_to_promotion(item,promo) ) {
+            item.promotion = judge_belong_to_promotion(item,promo);
+        }
+    })
+}
+
+function Increase_multiply_promotion_info(items,promo) {
+    add_promotion_info(items,promo);
+
+}
+
 module.exports = function (app) {
     app.get('/', function (req, res) {
         res.render('index');
@@ -13,16 +42,25 @@ module.exports = function (app) {
             if (err) {
                 items = [];
             }
+
             res.render('itemslist', {
                 items: items
             });
         });
     });
     app.get('/shopcart', function (req, res) {
+        Promotion.get_all_promotion(function(err,promo) {
+            if(err) {
+                promo =[];
+            }
+            //req.session.basic_items = Increase_multiply_promotion_info(req.session.basic_items,promo);
+            res.render('shopcart', {
+                items: req.session.basic_items
+            });
 
-        res.render('shopcart', {
-            items: req.session.basic_items
+
         });
+
 
     });
     app.post('/shopcart', function (req, res) {
@@ -35,6 +73,7 @@ module.exports = function (app) {
             var have_count_inputs = Dispose_inputs.add_count_to_barcodes(req.session.allinputs);
             req.session.basic_items = Dispose_inputs.add_other_property_to_inputs(have_count_inputs, item);
             res.end();
+            console.log(req.session.basic_items);
         });
     });
 

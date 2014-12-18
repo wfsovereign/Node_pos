@@ -11,7 +11,6 @@
     <script src="javascripts/shopcart_main.js"></script>
 
 
-
     <title></title>
 </head>
 <body>
@@ -20,18 +19,18 @@
         <div>
             <ul class="nav navbar-nav navbar-left">
                 <li><a href="#"> Let's Go </a></li>
-                <li ><a href="/"> 主页 </a></li>
+                <li><a href="/"> 主页 </a></li>
                 <li><a href="itemslist"> 商品列表 </a></li>
             </ul>
         </div>
         <div>
             <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a > <span class="glyphicon glyphicon-shopping-cart"></span> 购物车(
+                <li class="active"><a> <span class="glyphicon glyphicon-shopping-cart"></span> 购物车(
                     <span class="shopcart_num">
                     0
                     </span>
 
-                    ) </a> </li>
+                        ) </a></li>
             </ul>
         </div>
     </div>
@@ -40,6 +39,7 @@
 <br>
 <br>
 <br>
+
 <div class="container">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -65,11 +65,17 @@
                     <td><%= item.name %></td>
                     <td><%= item.price %></td>
                     <td><%= item.unit %></td>
-                    <td><div class="btn-group"><input type="button" class="btn btn-default reduce" value=" - ">
-                        <span class="btn btn-default" disabled="true" ><b><%= item.count %></b></span>
-                        <input type="button" class="btn btn-default reduce" value=" + ">
-                        </div></td>
-                    <td><%= item.subtotalstr %></td>
+                    <td>
+                        <div class="btn-group">
+                            <input type="button" class="btn btn-default reduce" value=" - "
+                                   data-barcode="<%= item.barcode %>" data-name="<%= item.name %>">
+                            <span class="btn btn-default" disabled="true">
+                                <b id="<%= item.name %>"><%= item.count %></b></span>
+                            <input type="button" class="btn btn-default reduce" value=" + "
+                                   data-barcode="<%= item.barcode %>" data-name="<%= item.name %>">
+                        </div>
+                    </td>
+                    <td id="<%= item.name + item.barcode %>"><%= item.subtotalstr %></td>
                 </tr>
                 <% }); %>
                 </tbody>
@@ -82,9 +88,12 @@
 
 
 <br>
-<div class="subtotal container" align="right" ></div>
-<div class="payment container " align="right" >
-    <a href="details"><button class='btn btn-primary btn-lg' >付款</button></a>
+
+<div class="subtotal container" align="right"></div>
+<div class="payment container " align="right">
+    <a href="details">
+        <button class='btn btn-primary btn-lg'>付款</button>
+    </a>
 </div>
 
 
