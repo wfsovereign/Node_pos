@@ -3,7 +3,17 @@ var Promotion = require('../models/promotion.js');
 var _ = require('../models/underscore.js');
 var Dispose_inputs = require('../models/dispose_inputs.js');
 
+function judge_decimal(integer){
+    return (Math.ceil(integer) > integer)
+}
+function postfix(value){
+    if(judge_decimal(value)){
 
+        return (value+"0(元)")
+    }else{
+        return (value+".00(元)")
+    }
+}
 function add_promotion_from_promotion(item,promo) {
     _(promo).each(function(pro) {
         var judge_bar = _(pro.barcode).find(function(p){
@@ -42,7 +52,7 @@ function calculate_gift(items) {
 function Increase_multiply_promotion_info(items,promo) {
     add_promotion_info(items,promo);
     calculate_gift(items);
-
+    return items;
 }
 
 module.exports = function (app) {
@@ -65,7 +75,8 @@ module.exports = function (app) {
             if(err) {
                 promo =[];
             }
-            //req.session.basic_items = Increase_multiply_promotion_info(req.session.basic_items,promo);
+            req.session.basic_items = Increase_multiply_promotion_info(req.session.basic_items,promo);
+            console.log(req.session.basic_items,"__________________________-");
             res.render('shopcart', {
                 items: req.session.basic_items
             });
