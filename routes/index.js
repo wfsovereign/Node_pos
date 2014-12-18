@@ -24,10 +24,24 @@ function add_promotion_info(items, promo) {
     })
 }
 
+function calculate_gift(items) {
+    _(items).each(function(item) {
+        if(item.promotion == "buy two get one" && item.count>2) {
+            item.gift_count = Math.floor(item.count/3);
+            item.subtotalstr = postfix((item.count-item.gift_count)*item.price) + "(原价:" + postfix(item.subtotal) +")"
+        }
+        if(item.promotion == "buy ten get one" && item.count>10) {
+            item.gift_count = Math.floor(item.count/11);
+            item.subtotalstr = postfix((item.count-item.gift_count)*item.price) + "(原价:" + postfix(item.subtotal) +")"
+        }
+    })
+
+}
 
 
 function Increase_multiply_promotion_info(items,promo) {
     add_promotion_info(items,promo);
+    calculate_gift(items);
 
 }
 
