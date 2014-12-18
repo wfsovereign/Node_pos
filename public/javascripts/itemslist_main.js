@@ -17,8 +17,11 @@ function shopcart_number_display(){
 
 
 function transfer_inputs_to_server() {
+
     var inputs = JSON.parse(sessionStorage.getItem('barcodes'));
-    $.post('/shopcart',{'inputs':inputs});
+    $.post('/shopcart',{'inputs':inputs},function(data){
+        window.location.href = "/shopcart";
+    });
 }
 
 $(document).ready(function(){

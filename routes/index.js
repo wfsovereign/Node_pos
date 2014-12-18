@@ -20,7 +20,6 @@ module.exports = function (app) {
     });
     app.get('/shopcart', function (req, res) {
 
-        console.log(req.session.basic_items, "basic items");
         res.render('shopcart', {
             items: req.session.basic_items
         });
@@ -28,23 +27,15 @@ module.exports = function (app) {
     });
     app.post('/shopcart', function (req, res) {
         req.session.allinputs = req.body.inputs;
-        //req.session.add_count_inputs = build_inputs_array(req.session.allinputs);
         req.session.basic_items = [];
-        console.log("set up");
-
-
         Item.get_item_from_barcode(req.session.allinputs, function (err, item) {
             if (err) {
                 console.log("error 1");
             }
             var have_count_inputs = Dispose_inputs.add_count_to_barcodes(req.session.allinputs);
-
             req.session.basic_items = Dispose_inputs.add_other_property_to_inputs(have_count_inputs, item);
-            console.log(req.session.basic_items, "item");
-            res.redirect('shopcart');
+            res.end();
         });
-
-
     });
 
 
@@ -55,6 +46,10 @@ module.exports = function (app) {
         res.send('hello world');
     });
 
+
+
+
+    //管理员页面
     app.get('/admin', function (req, res) {
         Item.get_items(function (err, items) {
             if (err) {

@@ -39,6 +39,7 @@
 <br>
 <br>
 <br>
+<br>
 <div class="container">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -64,7 +65,10 @@
                     <td><%= item.name %></td>
                     <td><%= item.price %></td>
                     <td><%= item.unit %></td>
-                    <td><%= item.count %></td>
+                    <td><div class="btn-group"><input type="button" class="btn btn-default reduce" value=" - ">
+                        <span class="btn btn-default" disabled="true" ><b><%= item.count %></b></span>
+                        <input type="button" class="btn btn-default reduce" value=" + ">
+                        </div></td>
                     <td><%= item.subtotalstr %></td>
                 </tr>
                 <% }); %>
