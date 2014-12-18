@@ -4,29 +4,27 @@ var _ = require('../models/underscore.js');
 var Dispose_inputs = require('../models/dispose_inputs.js');
 
 
-function judge_belong_to_barcodes(item,barcodes) {
-    _(barcodes).find(function(barcode) {
-        if(barcode == item.barcode) {
-            return true
+function add_promotion_from_promotion(item,promo) {
+    _(promo).each(function(pro) {
+        var judge_bar = _(pro.barcode).find(function(p){
+            if(p == item.barcode){
+                return p;
+            }
+        });
+        if(judge_bar != undefined) {
+            item.promotion = pro.type;
         }
-    })
+    });
 }
-function judge_belong_to_promotion(item,promo) {
-    _(promo).find(function(pro) {
-        if(judge_belong_to_barcodes(item,pro.barcode)){
-            return pro.type;
-        }
+
+function add_promotion_info(items, promo) {
+
+    _(items).each(function (item) {
+        add_promotion_from_promotion(item,promo);
     })
 }
 
 
-function add_promotion_info(items,promo) {
-    _(items).each(function(item) {
-        if(judge_belong_to_promotion(item,promo) ) {
-            item.promotion = judge_belong_to_promotion(item,promo);
-        }
-    })
-}
 
 function Increase_multiply_promotion_info(items,promo) {
     add_promotion_info(items,promo);
