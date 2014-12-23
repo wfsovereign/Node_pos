@@ -27,17 +27,29 @@ function raise() {
             barcode:bar,
             count:commodity_count+1
         };
+        in_obj_init(in_obj);
         raise_session_obj(in_obj);
+
+        $("#"+commodity_name).html(in_obj.count);
+        //$('#'+sub).html(subtotal);
+        //$(".subtotal").html(subtotal_string());
+
         sessionStorage.setItem("shopcart_number",parseInt(sessionStorage.getItem("shopcart_number"))+1);
 
-        $("#"+commodity_name).html(commodity_count);
-        //$('#'+sub).html(subtotal);
-       //$(".subtotal").html(subtotal_string());
         $(".shopcart_num").html(sessionStorage.getItem("shopcart_number"));
     }
 }
 
-
+function in_obj_init(in_obj) {
+    var operate_to_shopcart = JSON.parse(sessionStorage.getItem("in_and_de_obj"));
+    if(judge_exist_barcode(in_obj,operate_to_shopcart)) {
+        _(operate_to_shopcart).find(function(oper) {
+            if(oper.barcode == in_obj.barcode) {
+                in_obj.count = oper.count + 1;
+            }
+        });
+    }
+}
 
 function judge_exist_barcode(in_obj,operate_to_shopcart) {
     var judge_bar;
