@@ -22,6 +22,7 @@ function transfer_inputs_to_server() {
     $.post('/shopcart',{'inputs':inputs},function(data){
         window.location.href = "/shopcart";
     });
+    sessionStorage.setItem("barcodes",JSON.stringify([]));
 }
 
 $(document).ready(function(){
