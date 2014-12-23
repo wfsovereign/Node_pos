@@ -1,35 +1,76 @@
 
 $(document).ready(function() {
     $(".shopcart_num").html(sessionStorage.getItem("shopcart_number"));
-
+    $(".raise").on('click',raise);
 });
 
 
+function increase_and_decrease_obj_init(){
+    if(sessionStorage.getItem("in_and_de_obj") == null){
+        sessionStorage.setItem("in_and_de_obj",0);
+    }
+    return   sessionStorage.getItem("in_and_de_obj");
+}
+var operate_to_shopcart=[];
+sessionStorage.setItem("in_and_de_obj",JSON.stringify(operate_to_shopcart));
 
 
-
-function raise(){
-    var current_commodity_number= 0;
-    var bar = $(this).data("barcode");
-    var commodity_name = $(this).data("name");
-    var category_name = $(this).data("category");
+function raise() {
+    increase_and_decrease_obj_init();
+    var bar = $(this).data("barcode"),commodity_name = $(this).data("name");
+    var category_name = $(this).data("category"),commodity_count = $(this).data("count");
     var sub = commodity_name+category_name;
-    _.each(cart_items,function(item){
-        if(item.barcode == bar){
-            raise_update_item(item);
-            current_commodity_number = item.count;
-            subtotal = item.subtotalstr;
-        }
-    });
-    if(current_commodity_number>0){
-        sessionStorage.setItem("commodity_cart_items",JSON.stringify(cart_items));
+
+
+    if(commodity_count>0){
+        var in_obj = {
+            barcode:bar,
+            count:commodity_count+1
+        };
+        raise_session_obj(in_obj);
         sessionStorage.setItem("shopcart_number",parseInt(sessionStorage.getItem("shopcart_number"))+1);
-        var inputs = JSON.parse(sessionStorage.getItem("barcodes"));
-        inputs.push(bar);
-        sessionStorage.setItem("barcodes",JSON.stringify(inputs));
-        $("#"+commodity_name).html(current_commodity_number);
-        $('#'+sub).html(subtotal);
-        $(".subtotal").html(subtotal_string());
+
+        $("#"+commodity_name).html(commodity_count);
+        //$('#'+sub).html(subtotal);
+       //$(".subtotal").html(subtotal_string());
         $(".shopcart_num").html(sessionStorage.getItem("shopcart_number"));
     }
 }
+
+
+
+function judge_exist_barcode(in_obj,operate_to_shopcart) {
+    var judge_bar;
+    judge_bar = _(operate_to_shopcart).find(function(oper) {
+        if(oper.barcode == in_obj.barcode) {
+            return oper
+        }
+    });
+    return judge_bar !=undefined
+}
+
+
+function raise_session_obj(in_obj){
+    var operate_to_shopcart = JSON.parse(sessionStorage.getItem("in_and_de_obj"));
+    if(judge_exist_barcode(in_obj,operate_to_shopcart)){
+        _(operate_to_shopcart).find(function(oper) {
+            if(oper.barcode == in_obj.barcode) {
+                oper.count = in_obj.count
+            }
+        });
+        sessionStorage.setItem("in_and_de_obj",JSON.stringify(operate_to_shopcart));
+    }else {
+        operate_to_shopcart.push(in_obj);
+        sessionStorage.setItem("in_and_de_obj",JSON.stringify(operate_to_shopcart));
+    }
+}
+
+
+
+
+
+
+
+
+
+

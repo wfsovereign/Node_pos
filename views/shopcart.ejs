@@ -8,6 +8,7 @@
 
     <script src="dist/js/jquery.js"></script>
     <script src="dist/js/bootstrap.min.js"></script>
+    <script src="lib/underscore.js"></script>
     <script src="javascripts/shopcart_main.js"></script>
 
 
@@ -68,11 +69,15 @@
                     <td>
                         <div class="btn-group">
                             <input type="button" class="btn btn-default reduce" value=" - "
-                                   data-barcode="<%= item.barcode %>" data-name="<%= item.name %>">
+                                   data-barcode="<%= item.barcode %>" data-name="<%= item.name %>"
+                                   data-count="<%= item.count%>">
+
                             <span class="btn btn-default" disabled="true">
                                 <b id="<%= item.name %>"><%= item.count %></b></span>
-                            <input type="button" class="btn btn-default reduce" value=" + "
-                                   data-barcode="<%= item.barcode %>" data-name="<%= item.name %>">
+
+                            <input type="button" class="btn btn-default raise" value=" + "
+                                   data-barcode="<%= item.barcode %>" data-name="<%= item.name %>"
+                                   data-count="<%= item.count%>">
                         </div>
                     </td>
                     <td id="<%= item.name + item.barcode %>"><%= item.subtotalstr %></td>
