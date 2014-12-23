@@ -28,7 +28,6 @@ function add_promotion_from_promotion(item,promo) {
 }
 
 function add_promotion_info(items, promo) {
-
     _(items).each(function (item) {
         add_promotion_from_promotion(item,promo);
     })
@@ -55,6 +54,9 @@ function Increase_multiply_promotion_info(items,promo) {
     return items;
 }
 
+
+
+
 module.exports = function (app) {
     app.get('/', function (req, res) {
         res.render('index');
@@ -70,6 +72,7 @@ module.exports = function (app) {
             });
         });
     });
+
     app.get('/shopcart', function (req, res) {
         Promotion.get_all_promotion(function(err,promo) {
             if(err) {
@@ -80,11 +83,7 @@ module.exports = function (app) {
             res.render('shopcart', {
                 items: req.session.basic_items
             });
-
-
         });
-
-
     });
     app.post('/shopcart', function (req, res) {
         req.session.allinputs = req.body.inputs;
@@ -100,6 +99,33 @@ module.exports = function (app) {
         });
     });
 
+    function calculate_gift_to_item(item) {
+            item.count +=1;
+            item.subtotal = item.count * item.price;
+            item.subtotalstr = postfix(item.subtotal);
+
+            if(item.promotion == "buy two get one" && item.count>2) {
+                item.gift_count = Math.floor(item.count/3);
+                item.subtotalstr = postfix((item.count-item.gift_count)*item.price) + "(原价:" + postfix(item.subtotal) +")"
+            }
+            if(item.promotion == "buy ten get one" && item.count>10) {
+                item.gift_count = Math.floor(item.count/11);
+                item.subtotalstr = postfix((item.count-item.gift_count)*item.price) + "(原价:" + postfix(item.subtotal) +")"
+            }
+        return item
+
+    }
+    app.post('/increase',function(req,res) {
+        var bar = req.body.barcode;
+        _(req.session.basic_items).find(function(item) {
+            if(item.barcode == bar ) {
+
+                calculate_gift_to_item(item);
+                res.json({item:item})
+            }
+        })
+
+    });
 
     app.get('/details', function (req, res) {
         res.render('details');
