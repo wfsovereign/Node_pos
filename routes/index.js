@@ -29,6 +29,7 @@ function add_promotion_from_promotion(item,promo) {
 
 function add_promotion_info(items, promo) {
     _(items).each(function (item) {
+
         add_promotion_from_promotion(item,promo);
     })
 }
@@ -49,11 +50,39 @@ function calculate_gift(items) {
 
 
 function Increase_multiply_promotion_info(items,promo) {
-    add_promotion_info(items,promo);
-    calculate_gift(items);
-    return items;
+    if(items[0].increase == 'true'){
+        console.log("not increase");
+        return items;
+    }else{
+        console.log("increase");
+        add_promotion_info(items,promo);
+        calculate_gift(items);
+        return items;
+    }
+
 }
 
+function add_count_from_have_count_inputs_to_alreadyexists_items(items,count_inputs){
+    _(items).each(function(item) {
+        var count = 0;
+        _(count_inputs).find(function(bar) {
+            if(bar.barcode ==item.barcode){
+                item.count +=bar.count;
+                bar.mark = count;
+            }
+            count++;
+        })
+    });
+}
+
+function del_repetition_in_have_count_inputs(count_inputs) {
+    //var after_del_repetition_have_count_inputs = _(count_inputs).filter(function(inp) {
+    //    return inp.mark == undefined
+    //});
+    return _(count_inputs).filter(function(inp) {
+        return inp.mark == undefined
+    });
+}
 
 
 
@@ -88,92 +117,80 @@ module.exports = function (app) {
 
     app.post('/shopcart', function (req, res) {
         req.session.allinputs = req.body.inputs;
+        if(req.session.basic_items == undefined) {
+            req.session.basic_items = [];
+        }
 
-        Item.get_item_from_barcode(req.session.allinputs, function (err, item) {
-            if (err) {
-                console.log("error 1");
-            }
-            if(req.session.basic_items == undefined){
-
-                req.session.basic_items = [];
+        if(req.session.allinputs != undefined){
+            Item.get_item_from_barcode(req.session.allinputs, function (err, item) {
+                if (err) {
+                    console.log("error 1");
+                }
                 var have_count_inputs = Dispose_inputs.add_count_to_barcodes(req.session.allinputs);
                 req.session.basic_items = Dispose_inputs.add_other_property_to_inputs(have_count_inputs, item);
                 res.end();
-            }else{
-                console.log(req.session.basic_items,"+++++++++++++++++++++=");
 
-                //console.log(req.session.basic_items);
-                var has_count_inputs = Dispose_inputs.add_count_to_barcodes(req.session.allinputs);
-                //var items = req.session.basic_items;
-                add_count_from_have_count_inputs_to_alreadyexists_items(req.session.basic_items,has_count_inputs);
-                //_(req.session.basic_items).each(function(item) {
-                //    calculate_gift_to_item(item);
-                //})
-                var after_del_repeition_count_inputs = del_repetition_in_have_count_inputs(has_count_inputs);
-                //console.log(after_del_repeition_count_inputs,"1111111111111111");
-                var new_items = Dispose_inputs.add_other_property_to_inputs(has_count_inputs,item);
-                _(new_items).each(function(item) {
-                    req.session.basic_items.push(item);
-                });
-                //console.log(req.session.basic_items);
-                //req.session.basic_items.push(Dispose_inputs.add_other_property_to_inputs(has_count_inputs,item));
-                res.end();
-            }
+                //}else{
+                //    console.log(req.session.basic_items,"+++++++++++++++++++++=");
+                //
+                //
+                //    var has_count_inputs = Dispose_inputs.add_count_to_barcodes(req.session.allinputs);
+                //
+                //    add_count_from_have_count_inputs_to_alreadyexists_items(req.session.basic_items,has_count_inputs);
+                //
+                //    var after_del_repetition_count_inputs = del_repetition_in_have_count_inputs(has_count_inputs);
+                //
+                //    var new_items = Dispose_inputs.add_other_property_to_inputs(after_del_repetition_count_inputs,item);
+                //    var items = req.session.basic_items;
+                //    _(new_items).each(function(item) {
+                //        items.push(item);
+                //    });
+                //    req.session.basic_items = items;
+                //
+                //    res.end();
+                //}
 
 
-        });
+            });
+        }else{
+
+            console.log("empty inputs");
+            res.end();
+        }
     });
-    function add_count_from_have_count_inputs_to_alreadyexists_items(items,count_inputs){
-        _(items).each(function(item) {
-            var count = 0;
-            _(count_inputs).find(function(bar) {
-                if(bar.barcode ==item.barcode){
-                    item.count +=bar.count;
-                    bar.mark = count;
-                }
-                count++;
-            })
-        });
-    }
-    function del_repetition_in_have_count_inputs(count_inputs) {
-        //var after_del_repetition_have_count_inputs = _(count_inputs).filter(function(inp) {
-        //    return inp.mark == undefined
-        //});
-        return _(count_inputs).filter(function(inp) {
-            return inp.mark == undefined
-        });
-    }
 
     function calculate_gift_to_item(item) {
-            item.count +=1;
-            item.subtotal = item.count * item.price;
-            item.subtotalstr = postfix(item.subtotal);
+        item.count +=1;
+        item.subtotal = item.count * item.price;
+        item.subtotalstr = postfix(item.subtotal);
 
-            if(item.promotion == "buy two get one" && item.count>2) {
-                item.gift_count = Math.floor(item.count/3);
-                item.subtotalstr = postfix((item.count-item.gift_count)*item.price) + "(原价:" + postfix(item.subtotal) +")"
-            }
-            if(item.promotion == "buy ten get one" && item.count>10) {
-                item.gift_count = Math.floor(item.count/11);
-                item.subtotalstr = postfix((item.count-item.gift_count)*item.price) + "(原价:" + postfix(item.subtotal) +")"
-            }
-        return item
-
+        if(item.promotion == "buy two get one" && item.count>2) {
+            item.gift_count = Math.floor(item.count/3);
+            item.subtotalstr = postfix((item.count-item.gift_count)*item.price) + "(原价:" + postfix(item.subtotal) +")"
+        }
+        if(item.promotion == "buy ten get one" && item.count>10) {
+            item.gift_count = Math.floor(item.count/11);
+            item.subtotalstr = postfix((item.count-item.gift_count)*item.price) + "(原价:" + postfix(item.subtotal) +")"
+        }
     }
+
+
+
     app.post('/increase',function(req,res) {
         var bar = req.body.barcode;
         var items = req.session.basic_items;
         _(items).find(function(item) {
             if(item.barcode == bar ) {
-
                 calculate_gift_to_item(item);
-                res.json({item:item})
+                res.json({item:item});
+                res.end();
             }
         });
+
         req.session.basic_items = items;
-
-
+        console.log(req.session.basic_items,"++++++++++++++++++=");
     });
+
 
     app.get('/details', function (req, res) {
         res.render('details');
