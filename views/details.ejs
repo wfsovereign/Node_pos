@@ -8,7 +8,7 @@
     <script src="dist/js/bootstrap.min.js"></script>
     <script src="lib/underscore.js"></script>
     <script src="lib/moment-with-locales.js"></script>
-
+    <script src="javascripts/details_main.js"></script>
     <title></title>
 </head>
 <body>
@@ -58,7 +58,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <% items.forEach(function(item, index){ %>
+                    <% if(items){items.forEach(function(item, index){ %>
                     <tr>
                         <td><%= item.category %></td>
                         <td><%= item.name %></td>
@@ -69,7 +69,7 @@
                         </td>
                         <td><%= item.subtotalstr %></td>
                     </tr>
-                    <% }); %>
+                    <% })}; %>
                     </tbody>
                 </table>
                 <% if(present){ %>
@@ -115,9 +115,9 @@
 <br>
 
 <div class="payment container " align="right">
-    <a href="itemslist">
-        <button class='btn btn-primary btn-lg confirm-payment'>确认</button>
-    </a>
+
+        <button class='btn btn-primary btn-lg confirm_payment'>确认</button>
+
 </div>
 
 

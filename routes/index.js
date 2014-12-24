@@ -235,8 +235,13 @@ module.exports = function (app) {
             gift_subtotal:add_string_to_gift_items_subtotal(caculate_gift_items_subtotal(produce_gift_items(req.session.basic_items)))
         });
     });
-    app.get('/abs', function (req, res) {
-        res.send('hello world');
+
+    app.post('/reset', function (req, res) {
+        console.log("____________________");
+        req.session.basic_items =null;
+        req.session.items_subtotal =null;
+        res.end();
+
     });
 
 
