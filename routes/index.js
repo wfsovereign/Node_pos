@@ -160,7 +160,7 @@ module.exports = function (app) {
     });
 
     function calculate_gift_to_item(item) {
-        item.count +=1;
+
         item.subtotal = item.count * item.price;
         item.subtotalstr = postfix(item.subtotal);
 
@@ -181,6 +181,22 @@ module.exports = function (app) {
         var items = req.session.basic_items;
         _(items).find(function(item) {
             if(item.barcode == bar ) {
+                item.count +=1;
+                calculate_gift_to_item(item);
+                res.json({item:item});
+                res.end();
+            }
+        });
+
+        req.session.basic_items = items;
+        console.log(req.session.basic_items,"++++++++++++++++++=");
+    });
+    app.post('/decrease',function(req,res) {
+        var bar = req.body.barcode;
+        var items = req.session.basic_items;
+        _(items).find(function(item) {
+            if(item.barcode == bar ) {
+                item.count -=1;
                 calculate_gift_to_item(item);
                 res.json({item:item});
                 res.end();

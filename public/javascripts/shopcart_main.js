@@ -7,19 +7,21 @@ function substract_barcode_from_inputs(inputs,bar) {
             return true
         }
         count ++;
-    })
+    });
+    inputs.splice(count,1);
+    return inputs;
 }
+
 function decrease() {
     var bar = $(this).data("barcode"),commodity_name = $(this).data("name");
     var category_name = $(this).data("category"),commodity_count = $(this).data("count");
     var sub = commodity_name+category_name;
-    if(commodity_count>0){
-
+    //console.log($("#"+commodity_name).html(),"123");
+    if($("#"+commodity_name).html()>0){
         var inputs = JSON.parse(sessionStorage.getItem("barcodes"));
-        inputs.push(bar);
-        substract_barcode_from_inputs(inputs,bar);
-        sessionStorage.setItem("barcodes",JSON.stringify(inputs));
-        $.post('/increase',{barcode:bar},function(data) {
+        //substract_barcode_from_inputs(inputs,bar);
+        sessionStorage.setItem("barcodes",JSON.stringify(substract_barcode_from_inputs(inputs,bar)));
+        $.post('/decrease',{barcode:bar},function(data) {
             $("#"+commodity_name).html(data.item.count);
             $("#"+commodity_name+bar).html(data.item.subtotalstr);
         });
