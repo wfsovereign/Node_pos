@@ -17,18 +17,18 @@
         <div>
             <ul class="nav navbar-nav navbar-left">
                 <li><a href="#"> Let's Go </a></li>
-                <li ><a href="/"> 主页 </a></li>
+                <li><a href="/"> 主页 </a></li>
                 <li><a href="itemslist"> 商品列表 </a></li>
             </ul>
         </div>
         <div>
             <ul class="nav navbar-nav navbar-right">
-                <li ><a href="shopcart"> <span class="glyphicon glyphicon-shopping-cart"></span> 购物车(
+                <li><a href="shopcart"> <span class="glyphicon glyphicon-shopping-cart"></span> 购物车(
                     <span class="shopcart_num">
                     0
                     </span>
 
-                    ) </a> </li>
+                        ) </a></li>
             </ul>
         </div>
     </div>
@@ -41,14 +41,14 @@
 <div>
     <div class="container ">
         <div class="panel  panel-default">
-            <div class=" panel-heading" style="background-color: lightgrey"><h3 >购物清单</h3></div>
+            <div class=" panel-heading" style="background-color: lightgrey"><h3>购物清单</h3></div>
             <div class="panel-body details">
                 <script>
-                    document.write(moment().format('YYYY年MM月DD日'+" "+"HH:mm:ss"))
+                    document.write(moment().format('YYYY年MM月DD日' + " " + "HH:mm:ss"))
                 </script>
-                <table  class="table table-bordered text-center ">
+                <table class="table table-bordered text-center ">
                     <thead class="commodity_list">
-                    <tr >
+                    <tr>
                         <td class="col-md-1"><b>分类</b></td>
                         <td class="col-md-2"><b>名称</b></td>
                         <td class="col-md-2"><b>单价（元）</b></td>
@@ -57,24 +57,68 @@
                         <td class="col-md-3"><b>小计</b></td>
                     </tr>
                     </thead>
+                    <tbody>
+                    <% items.forEach(function(item, index){ %>
+                    <tr>
+                        <td><%= item.category %></td>
+                        <td><%= item.name %></td>
+                        <td><%= item.price %></td>
+                        <td><%= item.unit %></td>
+                        <td>
+                            <%= item.count %>
+                        </td>
+                        <td><%= item.subtotalstr %></td>
+                    </tr>
+                    <% }); %>
+                    </tbody>
                 </table>
+                <% if(present){ %>
+                <div class=" panel-heading" style="background-color: lightgrey"><h3>赠送商品</h3></div>
+                <div class="panel-body details">
+
+                    <table class="table table-bordered text-center ">
+                        <thead class="commodity_list">
+                        <tr>
+                            <td class="col-md-1"><b>分类</b></td>
+                            <td class="col-md-2"><b>名称</b></td>
+                            <td class="col-md-1"><b>数量</b></td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% gift_items.forEach(function(item, index){ %>
+                        <tr>
+                            <td><%= item.category %></td>
+                            <td><%= item.name %></td>
+                            <td><%= item.gift_count %></td>
+                        </tr>
+                        <% }); %>
+                        </tbody>
+                    </table>
+                    <% } %>
+                </div>
+
+
             </div>
-
-
         </div>
     </div>
+
 </div>
+<div class="subtotal container" align="right"></div>
+<div class="savemoney container" align="right"></div>
+<div class="actualpayment container" align="right"></div>
 
-
-<div class="subtotal container" align="right" ></div>
-<div class="savemoney container" align="right" ></div>
-<div class="actualpayment container" align="right" ></div>
+<div class="container" align="right">
+    <%= subtotal%><br>
+    <%= gift_subtotal%><br>
+    <% subtotal-gift_subtotal%>
+</div>
 <br>
-<div class="payment container " align="right" >
-    <a href="itemslist"><button class='btn btn-primary btn-lg confirm-payment' >确认</button></a>
+
+<div class="payment container " align="right">
+    <a href="itemslist">
+        <button class='btn btn-primary btn-lg confirm-payment'>确认</button>
+    </a>
 </div>
-
-
 
 
 </body>
