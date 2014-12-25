@@ -62,28 +62,55 @@ function Increase_multiply_promotion_info(items, promo) {
 
 }
 
-function add_count_from_have_count_inputs_to_alreadyexists_items(items, count_inputs) {
+function add_string_to_items_subtotal(value) {
+    return "总计:" + postfix(value)
+}
+
+function add_string_to_gift_items_subtotal(value) {
+    return "节省:" + postfix(value)
+}
+function caculate_item_subtotal(items) {
+    var item_subtotal = 0;
     _(items).each(function (item) {
-        var count = 0;
-        _(count_inputs).find(function (bar) {
-            if (bar.barcode == item.barcode) {
-                item.count += bar.count;
-                bar.mark = count;
-            }
-            count++;
-        })
+        item_subtotal += item.subtotal;
     });
+    return item_subtotal;
+}
+function calculate_gift_and_substr_to_item(item) {
+    item.subtotal = item.count * item.price;
+    item.subtotalstr = postfix(item.subtotal);
+    if (item.promotion == "buy two get one" && item.count > 2) {
+        item.gift_count = Math.floor(item.count / 3);
+        item.subtotalstr = postfix((item.count - item.gift_count) * item.price) + "(原价:" + postfix(item.subtotal) + ")"
+    }
+    if (item.promotion == "buy ten get one" && item.count > 10) {
+        item.gift_count = Math.floor(item.count / 11);
+        item.subtotalstr = postfix((item.count - item.gift_count) * item.price) + "(原价:" + postfix(item.subtotal) + ")"
+    }
 }
 
-function del_repetition_in_have_count_inputs(count_inputs) {
-    //var after_del_repetition_have_count_inputs = _(count_inputs).filter(function(inp) {
-    //    return inp.mark == undefined
-    //});
-    return _(count_inputs).filter(function (inp) {
-        return inp.mark == undefined
+function judge_exist_present(items) {
+    var judge_exist_present_result;
+    _(items).find(function (item) {
+        if (item.gift_count > 0) {
+            judge_exist_present_result = true;
+        }
     });
+    return judge_exist_present_result;
 }
 
+function produce_gift_items(items) {
+    return _(items).filter(function (item) {
+        return item.gift_count > 0
+    })
+}
+function caculate_gift_items_subtotal(items) {
+    var gift_items_sutotal =0;
+    _(items).each(function(item) {
+        gift_items_sutotal+=item.gift_count*item.price;
+    });
+    return gift_items_sutotal;
+}
 
 module.exports = function (app) {
     app.get('/', function (req, res) {
@@ -116,20 +143,6 @@ module.exports = function (app) {
             });
         });
     });
-    function add_string_to_items_subtotal(value) {
-        return "总计:" + postfix(value)
-    }
-
-    function add_string_to_gift_items_subtotal(value) {
-        return "节省:" + postfix(value)
-    }
-    function caculate_item_subtotal(items) {
-        var item_subtotal = 0;
-        _(items).each(function (item) {
-            item_subtotal += item.subtotal;
-        });
-        return item_subtotal;
-    }
 
     app.post('/shopcart', function (req, res) {
         req.session.allinputs = req.body.inputs;
@@ -152,18 +165,7 @@ module.exports = function (app) {
         }
     });
 
-    function calculate_gift_and_substr_to_item(item) {
-        item.subtotal = item.count * item.price;
-        item.subtotalstr = postfix(item.subtotal);
-        if (item.promotion == "buy two get one" && item.count > 2) {
-            item.gift_count = Math.floor(item.count / 3);
-            item.subtotalstr = postfix((item.count - item.gift_count) * item.price) + "(原价:" + postfix(item.subtotal) + ")"
-        }
-        if (item.promotion == "buy ten get one" && item.count > 10) {
-            item.gift_count = Math.floor(item.count / 11);
-            item.subtotalstr = postfix((item.count - item.gift_count) * item.price) + "(原价:" + postfix(item.subtotal) + ")"
-        }
-    }
+
 
 
     app.post('/increase', function (req, res) {
@@ -179,7 +181,7 @@ module.exports = function (app) {
                     item: item,
                     items_subtotal: req.session.items_subtotal
                 });
-                res.end();
+                //res.end();
             }
         });
         req.session.basic_items = items;
@@ -196,34 +198,13 @@ module.exports = function (app) {
                     item: item,
                     items_subtotal: req.session.items_subtotal
                 });
-                res.end();
+               // res.end();
             }
         });
         req.session.basic_items = items;
     });
 
-    function judge_exist_present(items) {
-        var judge_exist_present_result;
-        _(items).find(function (item) {
-            if (item.gift_count > 0) {
-                judge_exist_present_result = true;
-            }
-        });
-        return judge_exist_present_result;
-    }
 
-    function produce_gift_items(items) {
-        return _(items).filter(function (item) {
-            return item.gift_count > 0
-        })
-    }
-    function caculate_gift_items_subtotal(items) {
-        var gift_items_sutotal =0;
-        _(items).each(function(item) {
-            gift_items_sutotal+=item.gift_count*item.price;
-        });
-        return gift_items_sutotal;
-    }
 
     app.get('/details', function (req, res) {
 
@@ -331,7 +312,6 @@ module.exports = function (app) {
             res.redirect('/adminp')
         })
     })
-
 
 };
 
